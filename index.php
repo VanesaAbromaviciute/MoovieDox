@@ -27,11 +27,11 @@
 
     .table-users .table-button {
       display: flex;
-      gap:5px ;
+      gap: 5px;
     }
 
     .table-users {
-      width:100%;
+      width: 100%;
     }
 
     .table-container {
@@ -43,7 +43,7 @@
 
 <body>
 
-<?php
+  <?php
   $conexion = mysqli_connect("db", "root", "test", "letterbox");
 
   if (!isset($_POST["accion"])) {
@@ -51,12 +51,10 @@
   }
 
   if (!isset($_POST["nombre"])) {
-    $_POST["cod"] = "";
     $_POST["nombre"] = "";
     $_POST["apellido"] = "";
     $_POST["edad"] = "";
     $_POST["nickname"] = "";
-
   }
 
 
@@ -64,6 +62,7 @@
     $borra = "DELETE FROM user WHERE CodUser=\"$_POST[cod]\"";
     mysqli_query($conexion, $borra);
   }
+ 
 
   if ($_POST["accion"] == "insertar") {
     $inserta = "INSERT INTO user VALUES (\"$_POST[cod]\", \"$_POST[nombre]\", \"$_POST[apellido]\", \"$_POST[edad]\",\"$_POST[nickname]\")";
@@ -84,7 +83,7 @@
     <div class="card table-container">
       <h1 class="text-center ">Usuarios</h1>
 
-      <table class="table table-striped table-users" >
+      <table class="table table-striped table-users">
         <tr>
           <th>Cod</th>
           <th>Nombre</th>
@@ -99,8 +98,8 @@
         while ($registro = mysqli_fetch_array($consulta)) {
         ?>
           <tr>
-            <td><div><?= $registro['CodUser'] ?></div></td>
-            <td><div><?= $registro['UserName'] ?></div></td>
+            <td><?= $registro['CodUser'] ?></td>
+            <td><?= $registro['UserName'] ?></td>
             <td><?= $registro['UserLastname'] ?></td>
             <td><?= $registro['UserAge'] ?></td>
             <td><?= $registro['UserNickname'] ?></td>
@@ -158,36 +157,27 @@
   </div>
   <br>
 
- <!--  tabla de películas -->
+  <!--  tabla de películas -->
 
   <?php
 
   if (!isset($_POST["accion_2"])) {
     $_POST["accion_2"] = "";
   }
-  if (!isset($_POST["pelicula"])) {
-    $_POST["pelicula"] = "";
-    $_POST["cod"] = "";
-    $_POST["salida"] = "";
-    $_POST["duracion"] = "";
-    $_POST["cod2"] = "";
-  }
- 
   if ($_POST["accion_2"] == "eliminar_2") {
-    $elimina2 = "DELETE FROM movie WHERE CodMovie=\"$_POST[cod]\"";
+    $elimina2 = "DELETE FROM movie WHERE CodMovie=\"$_POST[cod2]\"";
     mysqli_query($conexion, $elimina2);
   }
 
   if ($_POST["accion_2"] == "insertar_2") {
-    $añade2 = "INSERT INTO movie VALUES ( \"$_POST[cod2]\",\"$_POST[duracion]\",\"$_POST[cod]\", \"$_POST[pelicula]\", \"$_POST[salida]\")";
-    mysqli_query($conexion, $añade2);
+    $anade2 = "INSERT INTO movie VALUES ( \"$_POST[cod2]\",\"$_POST[pelicula]\",\"$_POST[salida]\", \"$_POST[duracion]\", \"$_POST[cod3]\")";
+    mysqli_query($conexion, $anade2);
   }
 
   if ($_POST["accion_2"] == "modificar_2") {
-    $cambia2 = "UPDATE movie SET CodMovie=\"$_POST[cod]\", MovieName=\"$_POST[pelicula]\", ReleaseDate=\"$_POST[salida]\", MovieDuration=\"$_POST[duracion]\", CodDirector=\"$_POST[cod2]\ WHERE CodMovie=\"$_POST[CodAntiguo2]\"";
+    $cambia2 = "UPDATE movie SET CodMovie=\"$_POST[cod2]\", MovieName=\"$_POST[pelicula]\", ReleaseDate=\"$_POST[salida]\", MovieDuration=\"$_POST[duracion]\", CodDirector=\"$_POST[cod3]\"  WHERE CodMovie=\"$_POST[CodAntiguo2]\"";
     mysqli_query($conexion, $cambia2);
   }
-
   $consulta_2 = mysqli_query($conexion, "SELECT * FROM movie");
   ?>
 
@@ -197,15 +187,15 @@
     <div class="card table-container">
       <h1 class="text-center ">Películas</h1>
 
-      <table class="table table-striped table-users" >
+      <table class="table table-striped table-users">
         <tr>
-        <th>Cod Director</th>
+          <th>Cod Director</th>
           <th>Cod</th>
           <th>Duración de pelicula</th>
           <th>Película</th>
           <th>Año de salida</th>
-       
-        
+
+
           <th></th>
           <th></th>
         </tr>
@@ -215,17 +205,21 @@
         ?>
           <tr>
             <td><?= $registro['CodDirector'] ?></td>
-            <td><div><?= $registro['CodMovie'] ?></div></td>
+            <td>
+              <div><?= $registro['CodMovie'] ?></div>
+            </td>
             <td><?= $registro['MovieDuration'] ?></td>
-            <td><div><?= $registro['MovieName'] ?></div></td>
+            <td>
+              <div><?= $registro['MovieName'] ?></div>
+            </td>
             <td><?= $registro['ReleaseDate'] ?></td>
-            
+
 
             <!-- Botón para eliminar un cliente de la base de datos -->
             <td>
               <form action="index.php" method="post">
                 <input type="hidden" name="accion_2" value="eliminar_2">
-                <input type="hidden" name="cod" value="<?= $registro['CodMovie'] ?>">
+                <input type="hidden" name="cod2" value="<?= $registro['CodMovie'] ?>">
                 <button type="submit" class="btn btn-danger table-button">
                   <i class="bi bi-trash3"></i>
                   Eliminar
@@ -236,11 +230,12 @@
             <!-- Botón para modificar datos de un usuario -->
             <td>
               <form action="modifica-pelicula.php" method="post">
-              <input type="hidden" name="cod2" value="<?= $registro['CodDirector'] ?>">
-                <input type="hidden" name="cod" value="<?= $registro['CodMovie'] ?>">
+                <input type="hidden" name="cod3" value="<?= $registro['CodDirector'] ?>">
+                <input type="hidden" name="cod2" value="<?= $registro['CodMovie'] ?>">
                 <input type="hidden" name="duracion" value="<?= $registro['MovieDuration'] ?>">
                 <input type="hidden" name="pelicula" value="<?= $registro['MovieName'] ?>">
                 <input type="hidden" name="salida" value="<?= $registro['ReleaseDate'] ?>">
+                <input type="hidden" name="cod3" value="<?= $registro['CodDirector'] ?>">
                 <button type="submit" class="btn btn-primary table-button">
                   <i class="bi bi-pencil"></i>
                   Modificar
@@ -255,11 +250,11 @@
         <form action="index.php" method="post">
           <input type="hidden" name="accion_2" value="insertar_2">
           <tr>
-          <td><input type="text" name="CodDirector" size="10"></td>
-            <td><input type="text" name="CodMovie" size="10" require></td>
-            <td><input type="text" name="MovieDuration" size="10"></td>
-            <td><input type="text" name="MovieName"></td>
-            <td><input type="text" name="ReleaseDate"></td>
+            <td><input type="text" name="cod3" size="10"></td>
+            <td><input type="text" name="cod2" size="10" require></td>
+            <td><input type="text" name="duracion" size="10"></td>
+            <td><input type="text" name="pelicula"></td>
+            <td><input type="text" name="salida"></td>
             <td>
               <button type="submit" class="btn btn-success table-button">
                 <i class="bi bi-floppy"></i>

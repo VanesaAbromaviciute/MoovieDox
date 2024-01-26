@@ -21,11 +21,11 @@
 
 <body>
   <?php
-    $CodMovie = $_POST["cod"];
+    $CodMovie = $_POST["cod2"];
     $MovieName = $_POST["pelicula"];
     $ReleaseDate = $_POST["salida"];
     $MovieDuration = $_POST["duracion"];
-    $CodDirector = $_POST["cod2"];
+    $CodDirector = $_POST["cod3"];
   ?>
   <br>
   <div class="container">
@@ -37,12 +37,12 @@
         <input type="hidden" name="accion_2" value="modificar_2">
         <input type="hidden" name="CodAntiguo2" value="<?= $CodMovie ?>">
         <div class="mb-3 aire">
-          <label for="cod" class="form-label">Cod</label>
+          <label for="cod2" class="form-label">Cod</label>
           <input
             type="text"
             class="form-control"
-            id="cod"
-            name="cod"
+            id="cod2"
+            name="cod2"
             value="<?= $CodMovie ?>"
             size="10">
         </div>
@@ -70,7 +70,7 @@
         <div class="mb-3 aire">
           <label for="duracion" class="form-label">Duración</label>
           <input
-            type="date"
+            type="text"
             class="form-control"
             id="duracion"
             name="duracion"
@@ -78,13 +78,13 @@
         </div>
 
         <div class="mb-3 aire">
-          <label for="cod2" class="form-label">Cod Director</label>
+          <label for="cod3" class="form-label">Cod Director</label>
           <input
             type="text"
             class="form-control"
-            id="cod2"
-            name="cod2"
-            value="<?= $MovieDuration ?>">
+            id="cod3"
+            name="cod3"
+            value="<?= $CodDirector ?>">
         </div>
 
 
