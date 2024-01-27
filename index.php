@@ -104,7 +104,7 @@
             <td><?= $registro['UserAge'] ?></td>
             <td><?= $registro['UserNickname'] ?></td>
 
-            <!-- Botón para eliminar un cliente de la base de datos -->
+            <!-- Botón para eliminar un usuario de la base de datos -->
             <td>
               <form action="index.php" method="post">
                 <input type="hidden" name="accion" value="eliminar">
@@ -215,7 +215,7 @@
             <td><?= $registro['ReleaseDate'] ?></td>
 
 
-            <!-- Botón para eliminar un cliente de la base de datos -->
+            <!-- Botón para eliminar una película de la base de datos -->
             <td>
               <form action="index.php" method="post">
                 <input type="hidden" name="accion_2" value="eliminar_2">
@@ -227,7 +227,7 @@
               </form>
             </td>
 
-            <!-- Botón para modificar datos de un usuario -->
+            <!-- Botón para modificar datos de una película -->
             <td>
               <form action="modifica-pelicula.php" method="post">
                 <input type="hidden" name="cod3" value="<?= $registro['CodDirector'] ?>">
